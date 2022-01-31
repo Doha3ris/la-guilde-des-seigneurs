@@ -13,16 +13,16 @@ class Character
     #[ORM\Column(type: 'integer')]
     private int $id;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 16)]
     private string $name;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 64)]
     private string $surname;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[ORM\Column(type: 'string', length: 16, nullable: true)]
     private string $caste;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[ORM\Column(type: 'string', length: 16, nullable: true)]
     private ?string $knowledge;
 
     #[ORM\Column(type: 'integer', nullable: true)]
@@ -31,7 +31,7 @@ class Character
     #[ORM\Column(type: 'integer', nullable: true)]
     private ?int $life;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[ORM\Column(type: 'string', length: 128, nullable: true)]
     private ?string $image;
 
     public function getId(): ?int
