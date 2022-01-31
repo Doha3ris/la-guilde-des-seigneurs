@@ -11,28 +11,28 @@ class Character
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private int $id;
+    private int $id = 1;
 
     #[ORM\Column(type: 'string', length: 16)]
-    private string $name;
+    private string $name = "Eldalote";
 
     #[ORM\Column(type: 'string', length: 64)]
-    private string $surname;
+    private string $surname = "Fleur elfique";
 
     #[ORM\Column(type: 'string', length: 16, nullable: true)]
-    private string $caste;
+    private ?string $caste = "Elfe";
 
     #[ORM\Column(type: 'string', length: 16, nullable: true)]
-    private ?string $knowledge;
+    private ?string $knowledge = "Arts";
 
     #[ORM\Column(type: 'integer', nullable: true)]
-    private ?int $intelligence;
+    private ?int $intelligence = 120;
 
     #[ORM\Column(type: 'integer', nullable: true)]
-    private ?int $life;
+    private ?int $life = 12;
 
     #[ORM\Column(type: 'string', length: 128, nullable: true)]
-    private ?string $image;
+    private ?string $image = "https://www.fete-en-folie.fr/272553-large_default/perruque-elfe.jpg";
 
     public function getId(): ?int
     {
