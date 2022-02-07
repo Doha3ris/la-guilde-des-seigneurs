@@ -12,8 +12,9 @@ class CharacterVoter extends Voter
 {
     public const CHARACTER_DISPLAY = 'characterDisplay';
     public const CHARACTER_CREATE = 'characterCreate';
+    public const CHARACTER_INDEX = 'characterIndex';
 
-    private const ATTRIBUTES = array(self::CHARACTER_DISPLAY, self::CHARACTER_CREATE);
+    private const ATTRIBUTES = array(self::CHARACTER_DISPLAY, self::CHARACTER_CREATE, self::CHARACTER_INDEX);
 
     protected function supports(string $attribute, $subject): bool
     {
@@ -28,6 +29,7 @@ class CharacterVoter extends Voter
         // Defines access rights
         switch ($attribute) {
             case self::CHARACTER_DISPLAY:
+            case self::CHARACTER_INDEX:
                 //Peut envoyer $token et $subject pour tester des conditions
                 return $this->canDisplay();
                 break;
@@ -48,7 +50,7 @@ class CharacterVoter extends Voter
     }
 
     /**
-     * Checks if is allowed to display
+     * Checks if is allowed to create
      */
     private function canCreate()
     {
