@@ -46,6 +46,18 @@ class Character
         return $this->id;
     }
 
+    public function getKind(): ?string
+    {
+        return $this->kind;
+    }
+
+    public function setKind(string $kind): self
+    {
+        $this->kind = $kind;
+
+        return $this;
+    }
+
     public function getName(): ?string
     {
         return $this->name;
@@ -135,24 +147,12 @@ class Character
         return get_object_vars($this);
     }
 
-    public function getKind(): ?string
-    {
-        return $this->kind;
-    }
-
-    public function setKind(string $kind): self
-    {
-        $this->kind = $kind;
-
-        return $this;
-    }
-
-    public function getCreation(): ?\DateTimeInterface
+    public function getCreation(): ?DateTime
     {
         return $this->creation;
     }
 
-    public function setCreation(\DateTimeInterface $creation): self
+    public function setCreation(DateTime $creation): self
     {
         $this->creation = $creation;
 
