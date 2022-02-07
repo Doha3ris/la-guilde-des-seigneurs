@@ -3,47 +3,62 @@
 namespace App\Entity;
 
 use App\Repository\CharacterRepository;
-use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CharacterRepository::class)]
+#[ORM\Table(name: "characters")]
 class Character
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private int $id = 1;
+    private int $id;
+
+    #[ORM\Column(type: 'string', length: 40)]
+    private string $identifier;
 
     #[ORM\Column(type: 'string', length: 16)]
     private string $kind;
 
     #[ORM\Column(type: 'string', length: 16)]
-    private string $name = "Eldalote";
+    private string $name;
 
     #[ORM\Column(type: 'string', length: 64)]
-    private string $surname = "Fleur elfique";
+    private string $surname;
 
     #[ORM\Column(type: 'string', length: 16, nullable: true)]
-    private ?string $caste = "Elfe";
+    private ?string $caste;
 
     #[ORM\Column(type: 'string', length: 16, nullable: true)]
-    private ?string $knowledge = "Arts";
+    private ?string $knowledge;
 
     #[ORM\Column(type: 'integer', nullable: true)]
-    private ?int $intelligence = 120;
+    private ?int $intelligence;
 
     #[ORM\Column(type: 'integer', nullable: true)]
-    private ?int $life = 12;
+    private ?int $life;
 
     #[ORM\Column(type: 'string', length: 128, nullable: true)]
-    private ?string $image = "https://www.fete-en-folie.fr/272553-large_default/perruque-elfe.jpg";
+    private ?string $image;
 
     #[ORM\Column(type: 'datetime')]
-    private DateTime $creation;
+    private \DateTime $creation;
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
+    }
+
+    public function getIdentifier(): ?string
+    {
+        return $this->identifier;
+    }
+
+    public function setIdentifier(string $identifier): self
+    {
+        $this->identifier = $identifier;
+
+        return $this;
     }
 
     public function getKind(): ?string
@@ -147,12 +162,12 @@ class Character
         return get_object_vars($this);
     }
 
-    public function getCreation(): ?DateTime
+    public function getCreation(): ?\DateTime
     {
         return $this->creation;
     }
 
-    public function setCreation(DateTime $creation): self
+    public function setCreation(\DateTime $creation): self
     {
         $this->creation = $creation;
 
