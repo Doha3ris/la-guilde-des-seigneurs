@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\CharacterRepository;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CharacterRepository::class)]
@@ -12,6 +13,9 @@ class Character
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private int $id = 1;
+
+    #[ORM\Column(type: 'string', length: 16)]
+    private string $kind;
 
     #[ORM\Column(type: 'string', length: 16)]
     private string $name = "Eldalote";
@@ -33,6 +37,9 @@ class Character
 
     #[ORM\Column(type: 'string', length: 128, nullable: true)]
     private ?string $image = "https://www.fete-en-folie.fr/272553-large_default/perruque-elfe.jpg";
+
+    #[ORM\Column(type: 'datetime')]
+    private DateTime $creation;
 
     public function getId(): ?int
     {
@@ -126,5 +133,29 @@ class Character
     public function toArray(): array
     {
         return get_object_vars($this);
+    }
+
+    public function getKind(): ?string
+    {
+        return $this->kind;
+    }
+
+    public function setKind(string $kind): self
+    {
+        $this->kind = $kind;
+
+        return $this;
+    }
+
+    public function getCreation(): ?\DateTimeInterface
+    {
+        return $this->creation;
+    }
+
+    public function setCreation(\DateTimeInterface $creation): self
+    {
+        $this->creation = $creation;
+
+        return $this;
     }
 }
