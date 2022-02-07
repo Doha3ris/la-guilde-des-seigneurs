@@ -1,4 +1,3 @@
-# La Guilde des (grands) seigneurs
+# La Guilde des Seigneurs
 
-- Valentin FOLLIGUET
 - Jérémy LAURENT

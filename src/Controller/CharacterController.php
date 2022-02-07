@@ -15,8 +15,8 @@ class CharacterController extends AbstractController
     {
         $character = new Character();
 
-        //        var_dump($character);
-        //        dump($character);
+        // var_dump($character);
+        // dump($character);
         // dd($character);
 
         return new JsonResponse($character->toArray());
