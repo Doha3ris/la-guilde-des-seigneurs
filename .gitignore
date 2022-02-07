@@ -170,3 +170,7 @@ fabric.properties
 /web/js/
 
 # End of https://www.toptal.com/developers/gitignore/api/symfony,phpstorm
+###> symfony/phpunit-bridge ###
+.phpunit.result.cache
+/phpunit.xml
+###< symfony/phpunit-bridge ###
