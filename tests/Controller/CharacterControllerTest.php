@@ -23,7 +23,7 @@ class CharacterControllerTest extends WebTestCase
     public function testDisplay(): void
     {
         $client = static::createClient();
-        $client->request('GET', '/character/display');
+        $client->request('GET', '/character/display/01fd9fbae5d47c1a0a98fde938ba44f2d9257d6f');
 
         $this->assertJsonResponse($client->getResponse());
     }

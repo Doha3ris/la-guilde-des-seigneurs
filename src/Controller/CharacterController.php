@@ -27,6 +27,8 @@ class CharacterController extends AbstractController
     #[Route('/character/display/{identifier}', name: 'character_display', requirements: ["identifier" => "^([a-é0-9]{40})$"], methods: ["GET", "HEAD"])]
     public function display(Character $character): Response
     {
+        $this->denyAccessUnlessGranted('characterDisplay', $character);
+
         // var_dump($character);
         // dump($character);
         // dd($character);
@@ -37,6 +39,8 @@ class CharacterController extends AbstractController
     #[Route('/character/create', name: 'character_create', methods: ["POST", "HEAD"])]
     public function create(): Response
     {
+        $this->denyAccessUnlessGranted('characterCreate', null);
+
         return new JsonResponse($this->characterService->create()->toArray());
     }
 }
