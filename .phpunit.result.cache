@@ -1,0 +1,1 @@
+{"version":1,"defects":{"App\\Tests\\CharacterControllerTest::testCreate":3,"App\\Tests\\CharacterControllerTest::testDisplay":3},"times":{"App\\Tests\\CharacterControllerTest::testSomething":1.935,"App\\Tests\\CharacterControllerTest::testDisplay":0.155,"App\\Tests\\CharacterControllerTest::testIndex":1.07,"App\\Tests\\CharacterControllerTest::testCreate":0.38}}
