@@ -6,15 +6,21 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class CharacterControllerTest extends WebTestCase
 {
+    private $client;
+
+    public function setUp(): void
+    {
+        $this->client = static::createClient();
+    }
+
     /**
      * Tests redirect index
      */
     public function testRedirectIndex(): void
     {
-        $client = static::createClient();
-        $client->request('GET', '/character');
+        $this->client->request('GET', '/character');
 
-        $this->assertEquals(302, $client->getResponse()->getStatusCode());
+        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
     }
 
     /**
@@ -22,10 +28,9 @@ class CharacterControllerTest extends WebTestCase
      */
     public function testIndex(): void
     {
-        $client = static::createClient();
-        $client->request('GET', '/character/index');
+        $this->client->request('GET', '/character/index');
 
-        $this->assertJsonResponse($client->getResponse());
+        $this->assertJsonResponse();
     }
 
     /**
@@ -33,10 +38,9 @@ class CharacterControllerTest extends WebTestCase
      */
     public function testDisplay(): void
     {
-        $client = static::createClient();
-        $client->request('GET', '/character/display/01fd9fbae5d47c1a0a98fde938ba44f2d9257d6f');
+        $this->client->request('GET', '/character/display/01fd9fbae5d47c1a0a98fde938ba44f2d9257d6f');
 
-        $this->assertJsonResponse($client->getResponse());
+        $this->assertJsonResponse();
     }
 
     /**
@@ -44,17 +48,18 @@ class CharacterControllerTest extends WebTestCase
      */
     public function testCreate(): void
     {
-        $client = static::createClient();
-        $client->request('POST', '/character/create');
+        $this->client->request('POST', '/character/create');
 
-        $this->assertJsonResponse($client->getResponse());
+        $this->assertJsonResponse();
     }
 
     /**
      * Asserts that a Response is in json
      */
-    public function assertJsonResponse($response)
+    public function assertJsonResponse()
     {
+        $response = $this->client->getResponse();
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertTrue($response->headers->contains('Content-Type', 'application/json'), $response->headers);
     }
