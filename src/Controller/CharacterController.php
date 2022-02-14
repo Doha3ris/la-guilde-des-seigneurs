@@ -61,4 +61,15 @@ class CharacterController extends AbstractController
 
         return new JsonResponse($character->toArray());
     }
+
+    //DELETE
+    #[Route('/character/delete/{identifier}', name: 'character_delete', requirements: ["identifier" => "^([a-é0-9]{40})$"], methods: ["DELETE", "HEAD"])]
+    public function delete(Character $character): Response
+    {
+        $this->denyAccessUnlessGranted('characterDelete', $character);
+
+        $character = $this->characterService->delete($character);
+
+        return new JsonResponse($character->toArray());
+    }
 }

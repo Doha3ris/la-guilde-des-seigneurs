@@ -5,6 +5,21 @@ Tous les changements importants dans l'application seront annotés dans ce fichi
 Le format est basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 et ce projet adhère au [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.7] - 2022-02-07
+### Added
+- Ajout de la route delete
+
+## [0.6] - 2022-02-07
+### Added
+- Ajout de la route modify
+
+## [0.5] - 2022-02-07
+### Added
+- Redirection sur l'index
+- Récupération tous les character
+- Test sur l'erreur d'identifiant index
+- SetUp test
+
 ## [0.3] - 2022-02-07
 ### Added
 - Ajout Create du CRUD sur Character

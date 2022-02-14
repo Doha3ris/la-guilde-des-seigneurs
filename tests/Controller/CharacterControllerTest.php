@@ -83,6 +83,16 @@ class CharacterControllerTest extends WebTestCase
     }
 
     /**
+     * Tests delete
+     */
+    public function testDelete(): void
+    {
+        $this->client->request('DELETE', '/character/delete/20c21ea93c45731b335531bc13af5e8a629d8a27');
+
+        $this->assertJsonResponse();
+    }
+
+    /**
      * Asserts that a Response is in json
      */
     public function assertJsonResponse()
