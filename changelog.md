@@ -5,11 +5,15 @@ Tous les changements importants dans l'application seront annotés dans ce fichi
 Le format est basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 et ce projet adhère au [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.7] - 2022-02-07
+## [0.7.1] - 2022-02-14
+### Changed
+- Modification du retour de la requête
+
+## [0.7] - 2022-02-14
 ### Added
 - Ajout de la route delete
 
-## [0.6] - 2022-02-07
+## [0.6] - 2022-02-14
 ### Added
 - Ajout de la route modify
 

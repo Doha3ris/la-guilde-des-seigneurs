@@ -68,8 +68,8 @@ class CharacterController extends AbstractController
     {
         $this->denyAccessUnlessGranted('characterDelete', $character);
 
-        $character = $this->characterService->delete($character);
+        $response = $this->characterService->delete($character);
 
-        return new JsonResponse($character->toArray());
+        return new JsonResponse(array('delete' => $response));
     }
 }
