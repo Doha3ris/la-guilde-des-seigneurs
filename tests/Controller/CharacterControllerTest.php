@@ -73,6 +73,16 @@ class CharacterControllerTest extends WebTestCase
     }
 
     /**
+     * Tests create
+     */
+    public function testModify(): void
+    {
+        $this->client->request('PUT', '/character/modify/01fd9fbae5d47c1a0a98fde938ba44f2d9257d6f');
+
+        $this->assertJsonResponse();
+    }
+
+    /**
      * Asserts that a Response is in json
      */
     public function assertJsonResponse()

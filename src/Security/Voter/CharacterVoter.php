@@ -6,15 +6,15 @@ use App\Entity\Character;
 use LogicException;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 class CharacterVoter extends Voter
 {
     public const CHARACTER_DISPLAY = 'characterDisplay';
     public const CHARACTER_CREATE = 'characterCreate';
     public const CHARACTER_INDEX = 'characterIndex';
+    public const CHARACTER_MODIFY = 'characterModify';
 
-    private const ATTRIBUTES = array(self::CHARACTER_DISPLAY, self::CHARACTER_CREATE, self::CHARACTER_INDEX);
+    private const ATTRIBUTES = array(self::CHARACTER_DISPLAY, self::CHARACTER_CREATE, self::CHARACTER_INDEX, self::CHARACTER_MODIFY);
 
     protected function supports(string $attribute, $subject): bool
     {
@@ -36,6 +36,9 @@ class CharacterVoter extends Voter
             case self::CHARACTER_CREATE:
                 return $this->canCreate();
                 break;
+            case self::CHARACTER_MODIFY:
+                return $this->canModify();
+                break;
         }
 
         throw new LogicException('Invalid attribute: ' . $attribute);
@@ -53,6 +56,14 @@ class CharacterVoter extends Voter
      * Checks if is allowed to create
      */
     private function canCreate()
+    {
+        return true;
+    }
+
+    /**
+     * Checks if is allowed to modify
+     */
+    private function canModify()
     {
         return true;
     }

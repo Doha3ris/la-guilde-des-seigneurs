@@ -50,4 +50,15 @@ class CharacterController extends AbstractController
 
         return new JsonResponse($this->characterService->create()->toArray());
     }
+
+    //MODIFY
+    #[Route('/character/modify/{identifier}', name: 'character_modify', requirements: ["identifier" => "^([a-é0-9]{40})$"], methods: ["PUT", "HEAD"])]
+    public function modify(Character $character): Response
+    {
+        $this->denyAccessUnlessGranted('characterModify', $character);
+
+        $character = $this->characterService->modify($character);
+
+        return new JsonResponse($character->toArray());
+    }
 }
