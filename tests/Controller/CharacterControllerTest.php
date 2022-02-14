@@ -95,6 +95,20 @@ class CharacterControllerTest extends WebTestCase
     }
 
     /**
+     * Tests images
+     */
+    public function testImage()
+    {
+        //Tests without kind
+        $this->client->request('GET', '/character/images/3');
+        $this->assertJsonResponse();
+
+        //Tests with kind
+        $this->client->request('GET', '/character/images/dames/3');
+        $this->assertJsonResponse();
+    }
+
+    /**
      * Asserts that a Response is in json
      */
     public function assertJsonResponse()
