@@ -44,6 +44,9 @@ class Character
     #[ORM\Column(type: 'datetime')]
     private \DateTime $creation;
 
+    #[ORM\Column(type: 'datetime')]
+    private \DateTime $modification;
+
     public function getId(): int
     {
         return $this->id;
@@ -170,6 +173,18 @@ class Character
     public function setCreation(\DateTime $creation): self
     {
         $this->creation = $creation;
+
+        return $this;
+    }
+
+    public function getModification(): ?\DateTime
+    {
+        return $this->modification;
+    }
+
+    public function setModification(\DateTime $modification): self
+    {
+        $this->modification = $modification;
 
         return $this;
     }

@@ -43,7 +43,8 @@ class CharacterService implements CharacterServiceInterface
       ->setIntelligence(120)
       ->setLife(12)
       ->setImage('/images/eldalote.jpg')
-      ->setCreation(new DateTime());
+      ->setCreation(new DateTime())
+      ->setModification(new DateTime());
 
     $this->em->persist($character);
     $this->em->flush();
@@ -61,7 +62,8 @@ class CharacterService implements CharacterServiceInterface
       ->setKnowledge("Diplomatie")
       ->setIntelligence(110)
       ->setLife(13)
-      ->setImage('/images/gorthol.jpg');
+      ->setImage('/images/gorthol.jpg')
+      ->setModification(new DateTime());
 
     $this->em->persist($character);
     $this->em->flush();
