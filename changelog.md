@@ -5,6 +5,12 @@ Tous les changements importants dans l'application seront annotés dans ce fichi
 Le format est basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 et ce projet adhère au [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.8] - 2022-02-14
+### Added
+- Utilisation du même identifiant pour l'ensemble des tests
+### Changed
+- Fonctions de test utilisent l'identifiant
+
 ## [0.7.1] - 2022-02-14
 ### Changed
 - Modification du retour de la requête

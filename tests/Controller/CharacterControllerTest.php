@@ -7,6 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 class CharacterControllerTest extends WebTestCase
 {
     private $client;
+    private $content;
+    private static $identifier;
 
     public function setUp(): void
     {
@@ -53,42 +55,42 @@ class CharacterControllerTest extends WebTestCase
     }
 
     /**
-     * Tests display
-     */
-    public function testDisplay(): void
-    {
-        $this->client->request('GET', '/character/display/01fd9fbae5d47c1a0a98fde938ba44f2d9257d6f');
-
-        $this->assertJsonResponse();
-    }
-
-    /**
      * Tests create
      */
     public function testCreate(): void
     {
         $this->client->request('POST', '/character/create');
-
         $this->assertJsonResponse();
+        $this->defineIdentifier();
+        $this->assertIdentifier();
+    }
+
+    /**
+     * Tests display
+     */
+    public function testDisplay(): void
+    {
+        $this->client->request('GET', '/character/display/' . self::$identifier);
+        $this->assertJsonResponse();
+        $this->assertIdentifier();
     }
 
     /**
      * Tests create
      */
-    public function testModify(): void
+    public function testModify()
     {
-        $this->client->request('PUT', '/character/modify/01fd9fbae5d47c1a0a98fde938ba44f2d9257d6f');
-
+        $this->client->request('PUT', '/character/modify/' . self::$identifier);
         $this->assertJsonResponse();
+        $this->assertIdentifier();
     }
 
     /**
      * Tests delete
      */
-    public function testDelete(): void
+    public function testDelete()
     {
-        $this->client->request('DELETE', '/character/delete/20c21ea93c45731b335531bc13af5e8a629d8a27');
-
+        $this->client->request('DELETE', '/character/delete/' . self::$identifier);
         $this->assertJsonResponse();
     }
 
@@ -98,9 +100,26 @@ class CharacterControllerTest extends WebTestCase
     public function assertJsonResponse()
     {
         $response = $this->client->getResponse();
+        $this->content = json_decode($response->getContent(), true, 50);
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertTrue($response->headers->contains('Content-Type', 'application/json'), $response->headers);
+    }
+
+    /**
+     * Asserts that 'identifier' is present in the Response
+     */
+    public function assertIdentifier()
+    {
+        $this->assertArrayHasKey('identifier', $this->content);
+    }
+
+    /**
+     * Defines identifier
+     */
+    public function defineIdentifier()
+    {
+        self::$identifier = $this->content['identifier'];
     }
 
     /**
