@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Character;
-use App\Service\CharacterServiceInterface;
+use App\Service\Character\CharacterServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;

@@ -6,12 +6,16 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
 use App\Entity\Character;
+use App\Entity\Player;
 use DateTime;
 
 class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
+        /**
+         * Character fixture
+         */
         for ($i = 0; $i < 10; $i++) {
             $character = new Character();
             $character
@@ -28,7 +32,20 @@ class AppFixtures extends Fixture
                 ->setModification(new DateTime());
 
             $manager->persist($character);
+
+            $player = new Player();
+            $player
+                ->setIdentifier(hash('sha1', uniqid()))
+                ->setFirstname(rand(0, 1) ? 'Valentin' : 'Gauthier')
+                ->setLastname(rand(0, 1) ? 'Henri' . $i : 'Mathieu' . $i)
+                ->setEmail("oofed" . $i . "@valfol.org")
+                ->setMirian(25)
+                ->setCreation(new DateTime())
+                ->setModification(new DateTime());
+
+            $manager->persist($player);
         }
+
         $manager->flush();
     }
 }
