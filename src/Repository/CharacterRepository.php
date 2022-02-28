@@ -19,22 +19,17 @@ class CharacterRepository extends ServiceEntityRepository
         parent::__construct($registry, Character::class);
     }
 
-    // /**
-    //  * @return Character[] Returns an array of Character objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findOneByIdentifier($identifier)
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
+        return $this
+            ->createQueryBuilder('c')
+            ->select('c', 'p')
+            ->leftJoin('c.player', 'p')
+            ->where('c.identifier = :identifier')
+            ->setParameter('identifier', $identifier)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getOneOrNullResult();
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?Character

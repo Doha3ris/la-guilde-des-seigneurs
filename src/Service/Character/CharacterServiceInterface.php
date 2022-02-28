@@ -40,4 +40,9 @@ interface CharacterServiceInterface
    * Gets image randomly
    */
   public function getImages(int $number, ?string $kind = null);
+
+  /**
+   * Serialize the object(s)
+   */
+  public function serializeJson($data);
 }

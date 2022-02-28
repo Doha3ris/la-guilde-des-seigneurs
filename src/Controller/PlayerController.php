@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 
 class PlayerController extends AbstractController
 {
@@ -29,15 +30,16 @@ class PlayerController extends AbstractController
 
         $players = $this->playerService->getAll();
 
-        return new JsonResponse($players);
+        return JsonResponse::fromJsonString($this->playerService->serializeJson($players));
     }
 
     #[Route('/player/display/{identifier}', name: 'player_display', requirements: ["identifier" => "^([a-z0-9]{40})$"], methods: ["GET", "HEAD"])]
+    #[Entity("player", "repository.findOneByIdentifier(identifier)")]
     public function display(Player $player): Response
     {
         $this->denyAccessUnlessGranted('playerDisplay', $player);
 
-        return new JsonResponse($player->toArray());
+        return JsonResponse::fromJsonString($this->playerService->serializeJson($player));
     }
 
     #[Route('/player/create', name: 'player_create', methods: ["POST", "HEAD"])]
@@ -47,7 +49,7 @@ class PlayerController extends AbstractController
 
         $player = $this->playerService->create($request->getContent());
 
-        return new JsonResponse($player->toArray());
+        return JsonResponse::fromJsonString($this->playerService->serializeJson($player));
     }
 
     //MODIFY
@@ -58,7 +60,7 @@ class PlayerController extends AbstractController
 
         $player = $this->playerService->modify($request->getContent(), $player);
 
-        return new JsonResponse($player->toArray());
+        return JsonResponse::fromJsonString($this->playerService->serializeJson($player));
     }
 
     //DELETE
