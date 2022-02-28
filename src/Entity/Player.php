@@ -16,7 +16,7 @@ class Player
     #[ORM\Column(type: 'integer')]
     private int $id;
 
-    #[ORM\Column(type: 'string', length: 40)]
+    #[ORM\Column(type: 'string', length: 40, name: "gls_identifier")]
     #[Assert\Length(
         min: 40,
         max: 40,
@@ -28,7 +28,7 @@ class Player
         min: 3,
         max: 16,
     )]
-    #[ORM\Column(type: 'string', length: 50)]
+    #[ORM\Column(type: 'string', length: 50, name: "gls_firstname")]
     private string $firstname;
 
     #[Assert\NotBlank]
@@ -36,7 +36,7 @@ class Player
         min: 3,
         max: 16,
     )]
-    #[ORM\Column(type: 'string', length: 50)]
+    #[ORM\Column(type: 'string', length: 50, name: "gls_lastname")]
     private string $lastname;
 
     #[Assert\NotBlank]
@@ -44,16 +44,16 @@ class Player
         min: 3,
         max: 255,
     )]
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, name: "gls_email")]
     private string $email;
 
-    #[ORM\Column(type: 'integer', nullable: true)]
+    #[ORM\Column(type: 'integer', nullable: true, name: "gls_mirian")]
     private int $mirian;
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: 'datetime', name: "gls_creation")]
     private \DateTime $creation;
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: 'datetime', name: "gls_modification")]
     private \DateTime $modification;
 
     #[ORM\OneToMany(mappedBy: 'player', targetEntity: Character::class)]
