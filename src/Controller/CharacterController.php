@@ -6,6 +6,7 @@ use App\Entity\Character;
 use App\Service\Character\CharacterServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -44,26 +45,28 @@ class CharacterController extends AbstractController
     }
 
     #[Route('/character/create', name: 'character_create', methods: ["POST", "HEAD"])]
-    public function create(): Response
+    public function create(Request $request): Response
     {
         $this->denyAccessUnlessGranted('characterCreate', null);
 
-        return new JsonResponse($this->characterService->create()->toArray());
+        $character = $this->characterService->create($request->getContent());
+
+        return new JsonResponse($character->toArray());
     }
 
     //MODIFY
-    #[Route('/character/modify/{identifier}', name: 'character_modify', requirements: ["identifier" => "^([a-é0-9]{40})$"], methods: ["PUT", "HEAD"])]
-    public function modify(Character $character): Response
+    #[Route('/character/modify/{identifier}', name: 'character_modify', requirements: ["identifier" => "^([a-z0-9]{40})$"], methods: ["PUT", "HEAD"])]
+    public function modify(Request $request, Character $character): Response
     {
         $this->denyAccessUnlessGranted('characterModify', $character);
 
-        $character = $this->characterService->modify($character);
+        $character = $this->characterService->modify($request->getContent(), $character);
 
         return new JsonResponse($character->toArray());
     }
 
     //DELETE
-    #[Route('/character/delete/{identifier}', name: 'character_delete', requirements: ["identifier" => "^([a-é0-9]{40})$"], methods: ["DELETE", "HEAD"])]
+    #[Route('/character/delete/{identifier}', name: 'character_delete', requirements: ["identifier" => "^([a-z0-9]{40})$"], methods: ["DELETE", "HEAD"])]
     public function delete(Character $character): Response
     {
         $this->denyAccessUnlessGranted('characterDelete', $character);

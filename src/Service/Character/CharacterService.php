@@ -4,14 +4,22 @@ namespace App\Service\Character;
 
 use DateTime;
 use App\Entity\Character;
+use App\Form\CharacterType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\CharacterRepository;
+use LogicException;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 
 class CharacterService implements CharacterServiceInterface
 {
-  public function __construct(private EntityManagerInterface $em, private CharacterRepository $characterRepository)
-  {
+
+  public function __construct(
+    private EntityManagerInterface $em,
+    private CharacterRepository $characterRepository,
+    private FormFactoryInterface $formFactory
+  ) {
   }
 
   /**
@@ -31,21 +39,17 @@ class CharacterService implements CharacterServiceInterface
   /**
    * {inheritdoc}
    */
-  public function create()
+  public function create(string $data)
   {
+    //Use with {"kind":"Dame","name":"Eldalótë","surname":"Fleur elfique","caste":"Elfe","knowledge":"Arts","intelligence":120,"life":12,"image":"/images/eldalote.jpg"}
     $character = new Character();
     $character
       ->setIdentifier(hash('sha1', uniqid()))
-      ->setKind('Dame')
-      ->setName("Eldalote")
-      ->setSurname("Fleur elfique")
-      ->setCaste("Elfe")
-      ->setKnowledge("Arts")
-      ->setIntelligence(120)
-      ->setLife(12)
-      ->setImage('/images/eldalote.jpg')
       ->setCreation(new DateTime())
       ->setModification(new DateTime());
+
+    $this->submit($character, CharacterType::class, $data);
+    $this->isEntityFilled($character);
 
     $this->em->persist($character);
     $this->em->flush();
@@ -53,17 +57,51 @@ class CharacterService implements CharacterServiceInterface
     return $character;
   }
 
-  public function modify(Character $character)
+  /**
+   * {@inheritdoc}
+   */
+  public function isEntityFilled(Character $character)
   {
+    if (
+      null === $character->getKind() ||
+      null === $character->getName() ||
+      null === $character->getSurname() ||
+      null === $character->getIdentifier() ||
+      null === $character->getCreation() ||
+      null === $character->getModification()
+    ) {
+      throw new UnprocessableEntityHttpException('Missing data for Entity -> ' . json_encode($character->toArray()));
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function submit(Character $character, $formName, $data)
+  {
+    $dataArray = is_array($data) ? $data : json_decode($data, true);
+
+    //Bad array
+    if (null !== $data && !is_array($dataArray)) {
+      throw new UnprocessableEntityHttpException('Submitted data is not an array -> ' . $data);
+    }
+
+    //Submits form
+    $form = $this->formFactory->create($formName, $character, ['csrf_protection' => false]);
+    $form->submit($dataArray, false); //With false, only submitted fields are validated
+
+    //Gets errors
+    $errors = $form->getErrors();
+    foreach ($errors as $error) {
+      throw new LogicException('Error ' . get_class($error->getCause()) . ' --> ' . $error->getMessageTemplate() . ' ' . json_encode($error->getMessageParameters()));
+    }
+  }
+
+  public function modify(string $data, Character $character)
+  {
+    $this->submit($character, CharacterType::class, $data);
+    $this->isEntityFilled($character);
     $character
-      ->setKind('Seigneur')
-      ->setName("Gorthol")
-      ->setSurname("Haume de Terreur")
-      ->setCaste("Chevalier")
-      ->setKnowledge("Diplomatie")
-      ->setIntelligence(110)
-      ->setLife(13)
-      ->setImage('/images/gorthol.jpg')
       ->setModification(new DateTime());
 
     $this->em->persist($character);

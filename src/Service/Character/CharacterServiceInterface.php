@@ -14,12 +14,22 @@ interface CharacterServiceInterface
   /**
    * Creates the character
    */
-  public function create();
+  public function create(string $data);
+
+  /**
+   * Checks if the entity has been well filled
+   */
+  public function isEntityFilled(Character $character);
+
+  /**
+   * Submits the data to hydrate the 
+   */
+  public function submit(Character $character, $formName, $data);
 
   /**
    * Modifies the character
    */
-  public function modify(Character $character);
+  public function modify(string $data, Character $character);
 
   /**
    * Deletes the character
