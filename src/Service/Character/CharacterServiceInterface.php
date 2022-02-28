@@ -6,43 +6,43 @@ use App\Entity\Character;
 
 interface CharacterServiceInterface
 {
-  /**
-   * Gets all the characters
-   */
-  public function getAll();
+    /**
+     * Gets all the characters
+     */
+    public function getAll();
 
-  /**
-   * Creates the character
-   */
-  public function create(string $data);
+    /**
+     * Creates the character
+     */
+    public function create(string $data);
 
-  /**
-   * Checks if the entity has been well filled
-   */
-  public function isEntityFilled(Character $character);
+    /**
+     * Checks if the entity has been well filled
+     */
+    public function isEntityFilled(Character $character);
 
-  /**
-   * Submits the data to hydrate the 
-   */
-  public function submit(Character $character, $formName, $data);
+    /**
+     * Submits the data to hydrate the
+     */
+    public function submit(Character $character, $formName, $data);
 
-  /**
-   * Modifies the character
-   */
-  public function modify(string $data, Character $character);
+    /**
+     * Modifies the character
+     */
+    public function modify(string $data, Character $character);
 
-  /**
-   * Deletes the character
-   */
-  public function delete(Character $character);
+    /**
+     * Deletes the character
+     */
+    public function delete(Character $character);
 
-  /**
-   * Gets image randomly
-   */
-  public function getImages(int $number, ?string $kind = null);
+    /**
+     * Gets image randomly
+     */
+    public function getImages(int $number, ?string $kind = null);
 
-  /**
-   * Serialize the object(s)
-   */
-  public function serializeJson($data);
+    /**
+     * Serialize the object(s)
+     */
+    public function serializeJson($data);
 }

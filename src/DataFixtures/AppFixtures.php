@@ -20,13 +20,13 @@ class AppFixtures extends Fixture
             $character = new Character();
             $character
                 ->setIdentifier(hash('sha1', uniqid()))
-                ->setKind(rand(0, 1) ? 'Dame' : 'Seigneur')
+                ->setKind(random_int(0, 1) ? 'Dame' : 'Seigneur')
                 ->setName('Eldalótë' . $i)
                 ->setSurname('Fleur elfique')
                 ->setCaste('Elfe')
                 ->setKnowledge('Arts')
-                ->setIntelligence(mt_rand(100, 200))
-                ->setLife(mt_rand(10, 20))
+                ->setIntelligence(random_int(100, 200))
+                ->setLife(random_int(10, 20))
                 ->setImage('/images/eldalote.jpg')
                 ->setCreation(new DateTime())
                 ->setModification(new DateTime());
@@ -36,8 +36,8 @@ class AppFixtures extends Fixture
             $player = new Player();
             $player
                 ->setIdentifier(hash('sha1', uniqid()))
-                ->setFirstname(rand(0, 1) ? 'Valentin' : 'Gauthier')
-                ->setLastname(rand(0, 1) ? 'Henri' . $i : 'Mathieu' . $i)
+                ->setFirstname(random_int(0, 1) ? 'Valentin' : 'Gauthier')
+                ->setLastname(random_int(0, 1) ? 'Henri' . $i : 'Mathieu' . $i)
                 ->setEmail("oofed" . $i . "@valfol.org")
                 ->setMirian(25)
                 ->setCreation(new DateTime())

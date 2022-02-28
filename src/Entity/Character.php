@@ -51,20 +51,20 @@ class Character
         max: 16,
     )]
     #[ORM\Column(type: 'string', length: 16, nullable: true)]
-    private ?string $caste;
+    private ?string $caste = null;
 
     #[Assert\Length(
         min: 3,
         max: 16,
     )]
     #[ORM\Column(type: 'string', length: 16, nullable: true)]
-    private ?string $knowledge;
+    private ?string $knowledge = null;
 
     #[ORM\Column(type: 'integer', nullable: true)]
-    private ?int $intelligence;
+    private ?int $intelligence = null;
 
     #[ORM\Column(type: 'integer', nullable: true)]
-    private ?int $life;
+    private ?int $life = null;
 
     #[Assert\NotBlank]
     #[Assert\Length(
@@ -72,7 +72,7 @@ class Character
         max: 128,
     )]
     #[ORM\Column(type: 'string', length: 128, nullable: true)]
-    private ?string $image;
+    private ?string $image = null;
 
     #[ORM\Column(type: 'datetime')]
     private \DateTime $creation;

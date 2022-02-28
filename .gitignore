@@ -42,6 +42,11 @@
 !bin/symfony_requirements
 /vendor/
 
+!tools/
+tools/*
+!tools/composer.json
+
+
 # Assets and user uploads
 /web/bundles/
 /web/uploads/

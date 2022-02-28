@@ -25,8 +25,9 @@ class CharacterVoter extends Voter
 
     protected function supports(string $attribute, $subject): bool
     {
-        if (null !== $subject)
+        if (null !== $subject) {
             return $subject instanceof Character && in_array($attribute, self::ATTRIBUTES);
+        }
 
         return in_array($attribute, self::ATTRIBUTES);
     }
@@ -34,24 +35,13 @@ class CharacterVoter extends Voter
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
         // Defines access rights
-        switch ($attribute) {
-            case self::CHARACTER_DISPLAY:
-            case self::CHARACTER_INDEX:
-                //Peut envoyer $token et $subject pour tester des conditions
-                return $this->canDisplay();
-                break;
-            case self::CHARACTER_CREATE:
-                return $this->canCreate();
-                break;
-            case self::CHARACTER_MODIFY:
-                return $this->canModify();
-                break;
-            case self::CHARACTER_DELETE:
-                return $this->canDelete();
-                break;
-        }
-
-        throw new LogicException('Invalid attribute: ' . $attribute);
+        return match ($attribute) {
+            self::CHARACTER_DISPLAY, self::CHARACTER_INDEX => $this->canDisplay(),
+            self::CHARACTER_CREATE => $this->canCreate(),
+            self::CHARACTER_MODIFY => $this->canModify(),
+            self::CHARACTER_DELETE => $this->canDelete(),
+            default => throw new LogicException('Invalid attribute: ' . $attribute),
+        };
     }
 
     /**
