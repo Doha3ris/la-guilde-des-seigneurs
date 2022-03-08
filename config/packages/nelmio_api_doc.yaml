@@ -6,7 +6,7 @@ nelmio_api_doc:
         info:
             title: La Guilde des Seigneurs
             description: API utilisée pour La Guilde des Seigneurs
-            version: "0.11"
+            version: "0.15"
     areas: # to filter documented areas
         path_patterns:
             - ^/((?!api|_error).*$)
