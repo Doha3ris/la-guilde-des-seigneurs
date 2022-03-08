@@ -56,7 +56,9 @@
     "symfony/browser-kit": "^6",
     "symfony/css-selector": "^6",
     "symfony/maker-bundle": "^1.36",
-    "symfony/phpunit-bridge": "^6"
+    "symfony/phpunit-bridge": "^6",
+    "symfony/stopwatch": "^6",
+    "symfony/web-profiler-bundle": "^6"
   },
   "config": {
     "allow-plugins": {

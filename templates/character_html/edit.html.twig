@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Édition du personnage
+{% endblock %}
+
+{% block body %}
+	<h1 class="text-center">Édition du personnage</h1>
+
+	{{ include('character_html/_form.html.twig', {'button_label': 'Modifier'}) }}
+
+	{{ include('character_html/_delete_form.html.twig') }}
+
+	<a href="{{ path('character_html_index') }}">Revenir au tableau</a>
+{% endblock %}
