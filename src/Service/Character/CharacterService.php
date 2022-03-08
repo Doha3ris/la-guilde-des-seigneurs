@@ -19,13 +19,17 @@ use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 
+use App\Event\CharacterEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+
 class CharacterService implements CharacterServiceInterface
 {
     public function __construct(
         private EntityManagerInterface $em,
         private CharacterRepository $characterRepository,
         private FormFactoryInterface $formFactory,
-        private ValidatorInterface $validator
+        private ValidatorInterface $validator,
+        private EventDispatcherInterface $dispatcher
     ) {
     }
 
@@ -56,6 +60,11 @@ class CharacterService implements CharacterServiceInterface
             ->setModification(new DateTime());
 
         $this->submit($character, CharacterType::class, $data);
+
+        $event = new CharacterEvent($character);
+
+        $this->dispatcher->dispatch($event, CharacterEvent::CHARACTER_CREATED);
+
         $this->isEntityFilled($character);
 
         $this->em->persist($character);

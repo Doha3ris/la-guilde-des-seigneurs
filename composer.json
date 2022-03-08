@@ -28,6 +28,7 @@
     "symfony/asset": "6.0.*",
     "symfony/console": "^6",
     "symfony/dotenv": "^6",
+    "symfony/event-dispatcher": "^6",
     "symfony/expression-language": "^6",
     "symfony/finder": "^6",
     "symfony/flex": "^2",
