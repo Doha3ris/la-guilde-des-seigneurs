@@ -83,6 +83,15 @@ class CharacterControllerTest extends WebTestCase
     }
 
     /**
+     * Tests listByIntelligence
+     */
+    public function testListByIntelligence()
+    {
+        $this->client->request('GET', 'character/intelligence/100');
+        $this->assertJsonResponse();
+    }
+
+    /**
      * Tests create
      */
     public function testModify()
