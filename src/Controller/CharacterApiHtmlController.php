@@ -30,10 +30,10 @@ class CharacterApiHtmlController extends AbstractController
         ]);
     }
 
-    #[Route('/intelligence/{intelligence}', name: 'character_api_html_intelligence_index', methods: ["GET"])]
-    public function intelligenceIndex(int $intelligence): Response
+    #[Route('/intelligence/{intelligence}', name: 'character_api_html_intelligence_index', requirements: ["intelligence" => "^([0-9]{1,3})$"], methods: ["GET"])]
+    public function intelligenceLevel(int $level): Response
     {
-        $response = $this->client->request('GET', 'https://api.la-guilde-des-seigneurs.com/character/intelligence/' . $intelligence);
+        $response = $this->client->request('GET', 'https://api.la-guilde-des-seigneurs.com/character/intelligence/' . $level);
         return $this->render('character_api_html/index.html.twig', [
             'characters' => $response->toArray()
         ]);

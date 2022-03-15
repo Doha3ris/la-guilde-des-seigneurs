@@ -82,13 +82,22 @@ class CharacterControllerTest extends WebTestCase
         $this->assertIdentifier();
     }
 
-    /**
-     * Tests listByIntelligence
+    /*
+     * Tests intelligenceLevel() front, application and API
      */
-    public function testListByIntelligence()
+    public function testIntelligenceLevel()
     {
-        $this->client->request('GET', 'character/intelligence/100');
-        $this->assertJsonResponse();
+        $this->client->request('GET', '/character/intelligence/200');
+        $response = $this->client->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+
+        $this->client->request('GET', '/character/html/intelligence/200');
+        $response = $this->client->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+
+        $this->client->request('GET', '/character/api-html/intelligence/200');
+        $response = $this->client->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
     }
 
     /**

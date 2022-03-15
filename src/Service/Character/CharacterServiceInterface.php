@@ -59,5 +59,5 @@ interface CharacterServiceInterface
     /**
      *  Get all character above a given intelligence
      */
-    public function getCharactersByIntelligence(int $intelligence);
+    public function getAllByIntelligenceLevel(int $level);
 }

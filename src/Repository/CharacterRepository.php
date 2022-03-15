@@ -31,11 +31,14 @@ class CharacterRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
-    public function listByIntelligence($intelligence)
+    /*
+     * Gets all character by a given intelligence parameter
+     */
+    public function getAllByIntelligenceLevel($level)
     {
         return $this->createQueryBuilder('c')
             ->where('c.intelligence >= :intelligence')
-            ->setParameter('intelligence', $intelligence)
+            ->setParameter('intelligence', $level)
             ->getQuery()
             ->execute();
     }
