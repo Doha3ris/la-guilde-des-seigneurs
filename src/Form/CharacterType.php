@@ -28,10 +28,8 @@ class CharacterType extends AbstractType
             ->add('modification', DateTimeType::class);
     }
 
-    public function configureOptions(OptionsResolver $resolver): void
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults([
-            'data_class' => Character::class,
-        ]);
+        $resolver->setDefaults(['data_class' => Character::class, 'allow_extra_fields' => true,]);
     }
 }

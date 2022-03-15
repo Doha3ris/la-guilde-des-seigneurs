@@ -1,3 +1,3 @@
 # La Guilde des Seigneurs
 
-- Jérémy LAURENT
+- Valentin Folliguet
