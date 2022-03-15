@@ -62,16 +62,17 @@ class CharacterController extends AbstractController
      * @OA\Response(response=200,description="Success",
      *      @OA\Schema(type="array",
      *          @OA\Items(ref=@Model(type=Character::class))
+     *          @OA\Parameter(name="intelligence",in="path",description="minimum intelligence of the Characters",required=true)
      *      )
      *  )
      * @OA\Response(response=403,description="Access denied")
      * @OA\Tag(name="Character")
      */
-    #[Route('/character/index/intelligence/{intelligence}', name: 'character_intelligence_index', methods: ["GET"])]
-    public function intelligenceIndex(CharacterService $characterService, int $intelligence): Response
+    #[Route('/character/index/intelligence/{intelligence}', name: 'character_intelligence_index', requirements: ["intelligence" => "^([0-9]{1,3})$"], methods: ["GET"])]
+    public function intelligenceLevel(CharacterService $characterService, int $level): Response
     {
         $this->denyAccessUnlessGranted('characterIndex', null);
-        $charactersByIntelligence = $characterService->getCharactersByIntelligence($intelligence);
+        $charactersByIntelligence = $characterService->getAllByIntelligenceLevel($level);
         return JsonResponse::fromJsonString($this->characterService->serializeJson($charactersByIntelligence));
 
     }

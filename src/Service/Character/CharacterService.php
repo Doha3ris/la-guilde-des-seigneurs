@@ -189,8 +189,8 @@ class CharacterService implements CharacterServiceInterface
     /**
      * {@inheritdoc}
      */
-    public function getCharactersByIntelligence(int $intelligence): array
+    public function getAllByIntelligenceLevel(int $level): array
     {
-        return $this->characterRepository->listByIntelligence($intelligence);
+        return $this->characterRepository->getAllByIntelligenceLevel($level);
     }
 }
