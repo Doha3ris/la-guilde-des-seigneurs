@@ -25,12 +25,13 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 class CharacterService implements CharacterServiceInterface
 {
     public function __construct(
-        private EntityManagerInterface $em,
-        private CharacterRepository $characterRepository,
-        private FormFactoryInterface $formFactory,
-        private ValidatorInterface $validator,
+        private EntityManagerInterface   $em,
+        private CharacterRepository      $characterRepository,
+        private FormFactoryInterface     $formFactory,
+        private ValidatorInterface       $validator,
         private EventDispatcherInterface $dispatcher
-    ) {
+    )
+    {
     }
 
     /**
@@ -85,7 +86,7 @@ class CharacterService implements CharacterServiceInterface
     {
         $errors = $this->validator->validate($character);
         if (count($errors) > 0) {
-            throw new UnprocessableEntityHttpException((string) $errors . ' Missing data for Entity -> ' . $this->serializeJson($character));
+            throw new UnprocessableEntityHttpException((string)$errors . ' Missing data for Entity -> ' . $this->serializeJson($character));
         }
     }
 
@@ -179,9 +180,17 @@ class CharacterService implements CharacterServiceInterface
     public function serializeJson($data)
     {
         $encoders = new JsonEncoder();
-        $defaultContext = [AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => fn ($data) => $data->getIdentifier(),];
+        $defaultContext = [AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => fn($data) => $data->getIdentifier(),];
         $normalizers = new ObjectNormalizer(null, null, null, null, null, null, $defaultContext);
         $serializer = new Serializer([new DateTimeNormalizer(), $normalizers], [$encoders]);
         return $serializer->serialize($data, 'json');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCharactersByIntelligence(int $intelligence): array
+    {
+        return $this->characterRepository->listByIntelligence($intelligence);
     }
 }

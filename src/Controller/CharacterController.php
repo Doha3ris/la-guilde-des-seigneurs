@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Character;
+use App\Service\Character\CharacterService;
 use App\Service\Character\CharacterServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -52,6 +53,27 @@ class CharacterController extends AbstractController
         $characters = $this->characterService->getAll();
 
         return JsonResponse::fromJsonString($this->characterService->serializeJson($characters));
+    }
+
+    //INDEX
+
+    /**
+     *  Displays available Characters listed by intelligence given in url parameter
+     * @OA\Response(response=200,description="Success",
+     *      @OA\Schema(type="array",
+     *          @OA\Items(ref=@Model(type=Character::class))
+     *      )
+     *  )
+     * @OA\Response(response=403,description="Access denied")
+     * @OA\Tag(name="Character")
+     */
+    #[Route('/character/index/intelligence/{intelligence}', name: 'character_intelligence_index', methods: ["GET"])]
+    public function intelligenceIndex(CharacterService $characterService, int $intelligence): Response
+    {
+        $this->denyAccessUnlessGranted('characterIndex', null);
+        $charactersByIntelligence = $characterService->getCharactersByIntelligence($intelligence);
+        return JsonResponse::fromJsonString($this->characterService->serializeJson($charactersByIntelligence));
+
     }
 
     // DISPLAY

@@ -8,7 +8,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Service\Character\CharacterServiceInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 
@@ -22,10 +21,19 @@ class CharacterApiHtmlController extends AbstractController
         $this->client = $client;
     }
 
-    #[Route('/', name: 'character_api_html_index', methods: ["GET"], schemes: ["http"])]
+    #[Route('/', name: 'character_api_html_index', methods: ["GET"])]
     public function index(): Response
     {
         $response = $this->client->request('GET', 'https://api.la-guilde-des-seigneurs.com/character/index');
+        return $this->render('character_api_html/index.html.twig', [
+            'characters' => $response->toArray()
+        ]);
+    }
+
+    #[Route('/intelligence/{intelligence}', name: 'character_api_html_intelligence_index', methods: ["GET"])]
+    public function intelligenceIndex(int $intelligence): Response
+    {
+        $response = $this->client->request('GET', 'https://api.la-guilde-des-seigneurs.com/character/intelligence/' . $intelligence);
         return $this->render('character_api_html/index.html.twig', [
             'characters' => $response->toArray()
         ]);
